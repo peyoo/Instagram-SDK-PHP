@@ -35,7 +35,7 @@ $instagram = new \Instagram\Instagram();
 
 ## Usage
 
-Take a look at the examples below! At this stage, there's no documentation for all library methods, however your IDE can help out there, until I get that sorted!
+Take a look at the examples below! At this stage, there's no documentation for all the available library methods, however your IDE can help out there, until I get that sorted! (or someone helps me out)
 
 ## Examples
 
@@ -88,11 +88,45 @@ $instagram->setVerifyPeer(false);
 $instagram->login("username", "password");
 ```
 
-## Contributing
+## What can it do so far?
 
-If you would like to contribute to this project, please feel free to submit a pull request.
-
-Before you do, take a look at the issues to see if the functionality you want to contribute to is already in development.
+- Login
+- User Feed
+- My User Feed
+- Timeline Feed
+- Liked Feed
+- Tag Feed
+- Location Feed
+- User Tags Feed
+- Like Media
+- Unlike Media
+- Delete Media
+- Comment on Media
+- Get Comments on Media
+- Delete Bulk Comments on Media
+- Get User Info
+- Get User Followers
+- Get User Following
+- Get User Map (GeoMedia)
+- Get Media Info (Refresh specific Feed Item)
+- Get Current User Account
+- Edit User Profile
+- Set Account Public
+- Set Account Private
+- Show Friendship
+- Create Friendship
+- Destroy Friendship
+- Block Friendship
+- Unblock Friendship
+- Search Tags
+- Search Users
+- Search Places via Facebook
+- Change Profile Picture
+- Remove Profile Picture
+- Upload Photo
+- Configure Media (Photo)
+- Edit Media
+- Logout
 
 ## TODO
 
@@ -101,6 +135,12 @@ Before you do, take a look at the issues to see if the functionality you want to
 - Recent Activity
 - Register new Accounts
 - Upload and Post Videos
+
+## Contributing
+
+If you would like to contribute to this project, please feel free to submit a pull request.
+
+Before you do, take a look at the issues to see if the functionality you want to contribute to is already in development.
 
 ## License
 
