@@ -12,12 +12,12 @@ class Constants {
     /*
      * User Agent for API Requests
      */
-    const USER_AGENT = "Instagram 7.19.1 Android (19/4.4.2; 480dpi; 1080x1920; samsung; SM-G900I; klte; qcom; en_NZ)";
+    const USER_AGENT = "Instagram 8.0.0 Android (23/6.0.1; 640dpi; 1440x2560; samsung; SM-G935F; hero2lte; samsungexynos8890; en_NZ)";
 
     /*
 	 * Key used to generate JSON Signatures
 	 */
-    const IG_SIGNATURE_KEY = "8082724c0ba508df900162dfe68ecb3c435873f595df87a8e19230f1fa4f6e13";
+    const IG_SIGNATURE_KEY = "9b3b9e55988c954e51477da115c58ae82dcae7ac01c735b4443a3c5923cb593a";
 
     /*
      * Version of the Signature Key

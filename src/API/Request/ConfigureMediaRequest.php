@@ -23,6 +23,8 @@ class ConfigureMediaRequest extends AuthenticatedBaseRequest {
         list($width, $height) = getimagesize($path);
         $caption = $caption != null ? $caption : "";
 
+        $date = date("Y:m:d H:i:s");
+
         $this->setSignedBody(array(
             "camera_model" => DeviceConstants::CAMERA_MODEL,
             "_csrftoken" => $instagram->getCSRFToken(),
@@ -30,7 +32,8 @@ class ConfigureMediaRequest extends AuthenticatedBaseRequest {
             "_uid" => $instagram->getLoggedInUser()->getPk(),
             "_uuid" => $instagram->getUUID(),
             "caption" => $caption,
-            "date_time_original" => date("Y:m:d H:i:s"),
+            "date_time_original" => $date,
+            "date_time_digitalized" => $date,
             "upload_id" => $uploadId,
             "camera_make" => DeviceConstants::CAMERA_MAKE,
             "device" => array(
