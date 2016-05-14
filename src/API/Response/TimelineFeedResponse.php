@@ -24,7 +24,7 @@ class TimelineFeedResponse extends BaseResponse {
 
     /**
      * Next Maximum Id
-     * @var string
+     * @var string|null
      */
     protected $next_max_id;
 
@@ -77,7 +77,7 @@ class TimelineFeedResponse extends BaseResponse {
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getNextMaxId()
     {
@@ -85,7 +85,7 @@ class TimelineFeedResponse extends BaseResponse {
     }
 
     /**
-     * @param string $next_max_id
+     * @param string|null $next_max_id
      */
     public function setNextMaxId($next_max_id)
     {
