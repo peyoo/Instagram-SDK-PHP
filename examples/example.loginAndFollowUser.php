@@ -13,7 +13,7 @@ try {
     $user = $instagram->getUserByUsername("liamcarncottle");
 
     //Follow the User
-    $instagram->followUser($user->getPk());
+    $instagram->followUser($user);
 
 } catch(Exception $e){
     //Something went wrong...

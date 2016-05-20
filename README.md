@@ -21,112 +21,375 @@ If you like this project, please consider donating towards my coffee addiction f
 ```sh
 composer require liamcottle/instagram-sdk-php
 ```
-
-### Don't have Composer?
-
-What?! Grab it here: [https://getcomposer.org/](https://getcomposer.org/)
-
-## Include
-
 ```php
 require("../vendor/autoload.php");
 $instagram = new \Instagram\Instagram();
 ```
 
-## Usage
+### Don't have Composer?
 
-Take a look at the examples below! At this stage, there's no documentation for all the available library methods, however your IDE can help out there, until I get that sorted! (or someone helps me out)
+What?! Grab it here: [https://getcomposer.org/](https://getcomposer.org/)
 
 ## Examples
 
-More examples can be seen in the [examples](./examples) folder.
+Examples can be seen in the [examples](./examples) folder.
+
+## Usage
 
 ### Login
 
+Read: [Session Management](#session-management), to avoid calling `login` in each script.
+
 ```php
 $instagram->login("username", "password");
 ```
 
-### Follow
+### Timeline Feed
+
+- `$maxId`:`string` (Optional) Used for Pagination
 
 ```php
-$user = $instagram->getUserByUsername("liamcarncottle");
-$instagram->followUser($user->getPk());
+$instagram->getTimelineFeed($maxId);
 ```
 
-### Get your Timeline
+### User Feed
+
+- `$userId`:`string|User` User or User Id to get Feed of
+- `$maxId`:`string` (Optional) Used for Pagination
 
 ```php
-$timelineFeed = $instagram->getTimelineFeed();
+$instagram->getUserFeed($userId, $maxId);
 ```
 
-### Get user Feed
+### My User Feed
+
+- `$maxId`:`string` (Optional) Used for Pagination
 
 ```php
-$user = $instagram->getUserByUsername("liamcarncottle");
-$userFeed = $instagram->getUserFeed($user->getPk());
+$instagram->getMyUserFeed($maxId);
 ```
 
-### Post a Photo
+### Liked Feed
 
-Images that are on the web will need to be saved to a file first.
+- `$maxId`:`string` (Optional) Used for Pagination
 
 ```php
-$instagram->postPhoto("/Users/liamcottle/Desktop/photo.jpg", "Caption");
+$instagram->getLikedFeed($maxId);
 ```
 
-### Use a Proxy
+### Tag Feed
+
+- `$tag`:`string` Tag
+- `$maxId`:`string` (Optional) Used for Pagination
 
 ```php
-//Set the Proxy and Port
-$instagram->setProxy("127.0.0.1:8888");
+$instagram->getTagFeed($tag, $maxId);
+```
 
-//Enable/Disable SSL Verification (Testing with Charles Proxy etc)
-$instagram->setVerifyPeer(false);
+### Location Feed
 
+- `$locationId`:`string|Location` Location or Location Id to get Feed of
+- `$maxId`:`string` (Optional) Used for Pagination
+
+```php
+$instagram->getLocationFeed($locationId, $maxId);
+```
+
+### User Tags Feed
+
+- `$userId`:`string|User` User of User Id to get Tags Feed of
+- `$maxId`:`string` (Optional) Used for Pagination
+
+```php
+$instagram->getUserTagsFeed($userId, $maxId);
+```
+
+### Like Media
+
+- `$mediaId`:`string|FeedItem` FeedItem or FeedItem Id to Like
+
+```php
+$instagram->likeMedia($mediaId);
+```
+
+### Unlike Media
+
+- `$mediaId`:`string|FeedItem` FeedItem or FeedItem Id to Unlike
+
+```php
+$instagram->unlikeMedia($mediaId);
+```
+
+### Delete Media
+
+- `$mediaId`:`string|FeedItem` FeedItem or FeedItem Id to Delete
+- `$mediaType`:`int` Media Type (Constants available in `DeleteMediaRequest` class)
+
+```php
+$instagram->deleteMedia($mediaId, $mediaType);
+```
+
+### Comment on Media
+
+- `$mediaId`:`string|FeedItem` FeedItem or FeedItem Id to Comment on
+- `$comment`:`string` Comment
+
+```php
+$instagram->commentOnMedia($mediaId, $comment);
+```
+
+### Get Media Comments
+
+- `$mediaId`:`string|FeedItem` FeedItem or FeedItem Id of Media to get Comments from
+- `$maxId`:`string` (Optional) Used for Pagination
+
+```php
+$instagram->getMediaComments($mediaId, $maxId);
+```
+
+### Delete Media Comments
+
+- `$mediaId`:`string|FeedItem` FeedItem or FeedItem Id to Delete Comments from
+- `$commentIds`:`array` Comment Ids to Delete
+
+```php
+$instagram->deleteCommentsFromMedia($mediaId, $commentIds);
+```
+
+### User Info
+
+- `$userId`:`string|User` User or User Id to get Info of
+
+```php
+$instagram->getUserInfo($userId);
+```
+
+### User Followers
+
+- `$userId`:`string|User` User or User Id to get Followers of
+- `$maxId`:`string` (Optional) Used for Pagination
+
+```php
+$instagram->getUserFollowers($userId, $maxId);
+```
+
+### User Following
+
+- `$userId`:`string|User` User or User Id to get Following of
+- `$maxId`:`string` (Optional) Used for Pagination
+
+```php
+$instagram->getUserFollowing($userId, $maxId);
+```
+
+### GeoMedia
+
+- `$userId`:`string|User` User or User Id to get GeoMedia of
+
+```php
+$instagram->getUserMap($userId);
+```
+
+### Media Info
+
+- `$mediaId`:`string|FeedItem` FeedItem or FeedItem Id to get Info of
+
+```php
+$instagram->getMediaInfo($mediaId);
+```
+
+### Current User Account
+
+```php
+$instagram->getCurrentUserAccount();
+```
+
+### Edit User Profile
+
+- `$firstname`:`string` First Name
+- `$email`:`string` Email
+- `$phoneNumber`:`string` Phone Number
+- `$gender`:`int` Gender (Constants available in `User` class)
+- `$biography`:`string`: Biography
+- `$externalUrl`:`string` External Url
+
+```php
+$instagram->editUserProfile($firstname, $email, $phoneNumber, $gender, $biography, $externalUrl);
+```
+
+### Set Account Public
+
+```php
+$instagram->setAccountPublic();
+```
+
+### Set Account Private
+
+```php
+$instagram->setAccountPrivate();
+```
+
+### Show Friendship
+
+- `$userId`:`string|User` User or User Id to show Friendship between
+
+```php
+$instagram->showFriendship($userId);
+```
+
+### Follow User
+
+- `$userId`:`string|User` User or User Id to Follow
+
+```php
+$instagram->followUser($userId);
+```
+
+### Unfollow User
+
+- `$userId`:`string|User` User or User Id to Unfollow
+
+```php
+$instagram->unfollowUser($userId);
+```
+
+### Block User
+
+- `$userId`:`string|User` User or User Id to Block
+
+```php
+$instagram->blockUser($userId);
+```
+
+### Unblock User
+
+- `$userId`:`string|User` User or User Id to Unblock
+
+```php
+$instagram->unblockUser($userId);
+```
+
+### Search Tags
+
+- `$query`:`string` Tag to Search for
+
+```php
+$instagram->searchTags($query);
+```
+
+### Search Users
+
+- `$query`:`string` User to Search for
+
+```php
+$instagram->searchUsers($query);
+```
+
+### Search Places (Facebook)
+
+- `$query`:`string` Place to Search for
+
+```php
+$instagram->searchFacebookPlaces($query);
+```
+
+- `$latitude`:`string` Latitude
+- `$longitude`:`string` Longitude
+
+```php
+$instagram->searchFacebookPlacesByLocation($latitude, $longitude);
+```
+
+### Change Profile Picture
+
+- `$path`:`string` File path of Profile Picture to Upload
+
+```php
+$instagram->changeProfilePicture($path);
+```
+
+### Remove Profile Picture
+
+```php
+$instagram->removeProfilePicture();
+```
+
+### Post Photo
+
+- `$path`:`string` File path of Photo to Post
+- `$caption`:`string` Caption for this Photo
+
+```php
+$instagram->postPhoto($path, $caption);
+```
+
+### Edit Media
+
+- `$mediaId`:`string|FeedItem` FeedItem or FeedItem Id to Edit
+- `$caption`:`string` Caption for this Media
+
+```php
+$instagram->editMedia($mediaId, $caption);
+```
+
+### Get User by Username
+
+- `$username`:`string` Username to find User by
+
+```php
+$instagram->getUserByUsername($username);
+```
+
+### Logout
+
+```php
+$instagram->logout();
+```
+
+## Session Management
+
+To avoid logging in each time, you can use the `saveSession` and `initFromSavedSession` methods.
+
+Script 1:
+
+```php
 //Login
 $instagram->login("username", "password");
+
+//Serialize the Session into a JSON string
+$savedSession = $instagram->saveSession();
+
+//Store $savedSession in Database, or Cookie etc
 ```
 
-## What can it do so far?
+Script 2:
 
-- Login
-- User Feed
-- My User Feed
-- Timeline Feed
-- Liked Feed
-- Tag Feed
-- Location Feed
-- User Tags Feed
-- Like Media
-- Unlike Media
-- Delete Media
-- Comment on Media
-- Get Comments on Media
-- Delete Bulk Comments on Media
-- Get User Info
-- Get User Followers
-- Get User Following
-- Get User Map (GeoMedia)
-- Get Media Info (Refresh specific Feed Item)
-- Get Current User Account
-- Edit User Profile
-- Set Account Public
-- Set Account Private
-- Show Friendship
-- Create Friendship
-- Destroy Friendship
-- Block Friendship
-- Unblock Friendship
-- Search Tags
-- Search Users
-- Search Places via Facebook
-- Change Profile Picture
-- Remove Profile Picture
-- Upload Photo
-- Configure Media (Photo)
-- Edit Media
-- Logout
+```php
+//Load $savedSession from Database or Cookie etc
+$savedSession = ...;
+
+//Init from Saved Session
+$instagram->initFromSavedSession($savedSession);
+
+//Session is Restored, do something!
+$instagram-> ...;
+```
+
+## Extras
+
+### Proxy
+
+Use a Proxy between your Server and the Instagram API
+
+```php
+$instagram->setProxy("127.0.0.1:8888");
+```
+
+Enable or Disable Peer Verification, for testing with Charles Proxy etc.
+
+```php
+$instagram->setVerifyPeer(false);
+```
 
 ## TODO
 

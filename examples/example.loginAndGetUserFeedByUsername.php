@@ -13,7 +13,7 @@ try {
     $user = $instagram->getUserByUsername("liamcarncottle");
 
     //Get Feed of User by Id
-    $userFeed = $instagram->getUserFeed($user->getPk());
+    $userFeed = $instagram->getUserFeed($user);
 
     //Iterate over Items in Feed
     foreach($userFeed->getItems() as $feedItem){

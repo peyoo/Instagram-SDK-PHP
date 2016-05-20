@@ -41,6 +41,8 @@ use Instagram\API\Request\UnlikeMediaRequest;
 use Instagram\API\Request\UserFeedRequest;
 use Instagram\API\Request\UserMapRequest;
 use Instagram\API\Request\UserTagsFeedRequest;
+use Instagram\API\Response\Model\FeedItem;
+use Instagram\API\Response\Model\Location;
 use Instagram\API\Response\Model\User;
 use Ramsey\Uuid\Uuid;
 
@@ -459,7 +461,7 @@ class Instagram {
      *
      * Fetch User Feed
      *
-     * @param string $userId User Id to get Feed of
+     * @param string|API\Response\Model\User $userId User or User Id to get Feed of
      * @param string $maxId Next Maximum Id, used for Pagination
      * @return API\Response\UserFeedResponse
      * @throws Exception
@@ -468,6 +470,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call getUserFeed().");
+        }
+
+        if($userId instanceof User){
+            $userId = $userId->getPk();
         }
 
         $request = new UserFeedRequest($this, $userId, $maxId);
@@ -548,7 +554,7 @@ class Instagram {
      *
      * Fetch Location Feed
      *
-     * @param string $locationId Id of Location to get Feed of
+     * @param string|API\Response\Model\Location $locationId Location or Location Id to get Feed of
      * @param string $maxId Next Maximum Id, used for Pagination
      * @return API\Response\LocationFeedResponse
      * @throws Exception
@@ -557,6 +563,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call getLocationFeed().");
+        }
+
+        if($locationId instanceof Location){
+            $locationId = $locationId->getPk();
         }
 
         $request = new LocationFeedRequest($this, $locationId, $maxId);
@@ -572,9 +582,9 @@ class Instagram {
 
     /**
      *
-     * Fetch Location Feed
+     * Fetch User Tags Feed
      *
-     * @param string $userId Id of User to get Tags Feed of
+     * @param string|API\Response\Model\User $userId User of User Id to get Tags Feed of
      * @param string $maxId Next Maximum Id, used for Pagination
      * @return API\Response\UserTagsFeedResponse
      * @throws Exception
@@ -583,6 +593,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call getUserTagsFeed().");
+        }
+
+        if($userId instanceof User){
+            $userId = $userId->getPk();
         }
 
         $request = new UserTagsFeedRequest($this, $userId, $maxId);
@@ -600,7 +614,7 @@ class Instagram {
      *
      * Like Media
      *
-     * @param string $mediaId Id of Media to Like
+     * @param string|API\Response\Model\FeedItem $mediaId FeedItem or FeedItem Id to Like
      * @return API\Response\LikeMediaResponse
      * @throws Exception
      */
@@ -608,6 +622,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call likeMedia().");
+        }
+
+        if($mediaId instanceof FeedItem){
+            $mediaId = $mediaId->getPk();
         }
 
         $request = new LikeMediaRequest($this, $mediaId);
@@ -625,7 +643,7 @@ class Instagram {
      *
      * Unlike Media
      *
-     * @param string $mediaId Id of Media to Unlike
+     * @param string|API\Response\Model\FeedItem $mediaId FeedItem or FeedItem Id to Unlike
      * @return API\Response\UnlikeMediaResponse
      * @throws Exception
      */
@@ -633,6 +651,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call likeMedia().");
+        }
+
+        if($mediaId instanceof FeedItem){
+            $mediaId = $mediaId->getPk();
         }
 
         $request = new UnlikeMediaRequest($this, $mediaId);
@@ -650,8 +672,8 @@ class Instagram {
      *
      * Delete Media
      *
-     * @param string $mediaId Id of Media to Delete
-     * @param string $mediaType Type of Media to Delete (Constants Available in DeleteMediaRequest class)
+     * @param string|API\Response\Model\FeedItem $mediaId FeedItem or FeedItem Id to Delete
+     * @param string $mediaType Media Type (Constants available in DeleteMediaRequest class)
      * @return API\Response\DeleteMediaResponse
      * @throws Exception
      */
@@ -659,6 +681,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call deleteMedia().");
+        }
+
+        if($mediaId instanceof FeedItem){
+            $mediaId = $mediaId->getPk();
         }
 
         $request = new DeleteMediaRequest($this, $mediaId, $mediaType);
@@ -676,7 +702,7 @@ class Instagram {
      *
      * Comment on Media
      *
-     * @param string $mediaId Id of Media to Comment on
+     * @param string|API\Response\Model\FeedItem $mediaId FeedItem or FeedItem Id to Comment on
      * @param string $comment Comment
      * @return API\Response\CommentMediaResponse
      * @throws Exception
@@ -685,6 +711,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call commentOnMedia().");
+        }
+
+        if($mediaId instanceof FeedItem){
+            $mediaId = $mediaId->getPk();
         }
 
         $request = new CommentMediaRequest($this, $mediaId, $comment);
@@ -702,7 +732,7 @@ class Instagram {
      *
      * Get Media Comments
      *
-     * @param string $mediaId Id of Media to Delete
+     * @param string|API\Response\Model\FeedItem $mediaId FeedItem or FeedItem Id of Media to get Comments from
      * @param string $maxId Next Maximum Id, used for Pagination
      * @return API\Response\CommentsMediaResponse
      * @throws Exception
@@ -711,6 +741,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call getMediaComments().");
+        }
+
+        if($mediaId instanceof FeedItem){
+            $mediaId = $mediaId->getPk();
         }
 
         $request = new CommentsMediaRequest($this, $mediaId, $maxId);
@@ -728,7 +762,7 @@ class Instagram {
      *
      * Delete Media Comments
      *
-     * @param string $mediaId Id of Media to Delete Comments from
+     * @param string|API\Response\Model\FeedItem $mediaId FeedItem or FeedItem Id to Delete Comments from
      * @param array $commentIds Array of Comment Ids to Delete
      * @return API\Response\BulkDeleteCommentsMediaResponse
      * @throws Exception
@@ -737,6 +771,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call deleteCommentsFromMedia().");
+        }
+
+        if($mediaId instanceof FeedItem){
+            $mediaId = $mediaId->getPk();
         }
 
         $request = new BulkDeleteCommentsMediaRequest($this, $mediaId, $commentIds);
@@ -754,7 +792,7 @@ class Instagram {
      *
      * Get User Info
      *
-     * @param string $userId Id of User to get Info of
+     * @param string|API\Response\Model\User $userId User or User Id to get Info of
      * @return API\Response\InfoUserResponse
      * @throws Exception
      */
@@ -762,6 +800,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call getUserInfo().");
+        }
+
+        if($userId instanceof User){
+            $userId = $userId->getPk();
         }
 
         $request = new InfoUserRequest($this, $userId);
@@ -779,7 +821,7 @@ class Instagram {
      *
      * Get User Followers
      *
-     * @param string $userId Id of User to get Followers of
+     * @param string|API\Response\Model\User $userId User or User Id to get Followers of
      * @param string $maxId Next Maximum Id, used for Pagination
      * @return API\Response\FollowersFriendshipResponse
      * @throws Exception
@@ -788,6 +830,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call getUserFollowers().");
+        }
+
+        if($userId instanceof User){
+            $userId = $userId->getPk();
         }
 
         $request = new FollowersFriendshipRequest($this, $userId, $maxId);
@@ -805,7 +851,7 @@ class Instagram {
      *
      * Get User Following
      *
-     * @param string $userId Id of User to get Following of
+     * @param string|API\Response\Model\User $userId User or User Id to get Following of
      * @param string $maxId Next Maximum Id, used for Pagination
      * @return API\Response\FollowingFriendshipResponse
      * @throws Exception
@@ -814,6 +860,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call getUserFollowing().");
+        }
+
+        if($userId instanceof User){
+            $userId = $userId->getPk();
         }
 
         $request = new FollowingFriendshipRequest($this, $userId, $maxId);
@@ -831,7 +881,7 @@ class Instagram {
      *
      * Get GeoMedia from Map of User
      *
-     * @param string $userId Id of User to get GeoMedia of
+     * @param string|API\Response\Model\User $userId User or User Id to get GeoMedia of
      * @return API\Response\UserMapResponse
      * @throws Exception
      */
@@ -839,6 +889,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call getUserMap().");
+        }
+
+        if($userId instanceof User){
+            $userId = $userId->getPk();
         }
 
         $request = new UserMapRequest($this, $userId);
@@ -856,7 +910,7 @@ class Instagram {
      *
      * Get Media Info
      *
-     * @param string $mediaId Id of Media to get Info of
+     * @param string|API\Response\Model\FeedItem $mediaId FeedItem or FeedItem Id to get Info of
      * @return API\Response\InfoMediaResponse
      * @throws Exception
      */
@@ -864,6 +918,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call getMediaInfo().");
+        }
+
+        if($mediaId instanceof FeedItem){
+            $mediaId = $mediaId->getPk();
         }
 
         $request = new InfoMediaRequest($this, $mediaId);
@@ -908,7 +966,7 @@ class Instagram {
      * @param string $firstname First Name
      * @param string $email Email
      * @param string $phoneNumber Phone Number
-     * @param int $gender Gender (Constants Available in User class)
+     * @param int $gender Gender (Constants available in User class)
      * @param string $biography Biography
      * @param string $externalUrl External Url
      * @return API\Response\EditProfileAccountResponse
@@ -1009,7 +1067,7 @@ class Instagram {
      *
      * Show Friendship between User
      *
-     * @param string $userId Id of User to show Friendship between
+     * @param string|API\Response\Model\User $userId User or User Id to show Friendship between
      * @return API\Response\ShowFriendshipResponse
      * @throws Exception
      */
@@ -1017,6 +1075,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call showFriendship().");
+        }
+
+        if($userId instanceof User){
+            $userId = $userId->getPk();
         }
 
         $request = new ShowFriendshipRequest($this, $userId);
@@ -1034,7 +1096,7 @@ class Instagram {
      *
      * Follow User
      *
-     * @param string $userId Id of User to Follow
+     * @param string|API\Response\Model\User $userId User or User Id to Follow
      * @return API\Response\CreateFriendshipResponse
      * @throws Exception
      */
@@ -1042,6 +1104,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call followUser().");
+        }
+
+        if($userId instanceof User){
+            $userId = $userId->getPk();
         }
 
         $request = new CreateFriendshipRequest($this, $userId);
@@ -1059,7 +1125,7 @@ class Instagram {
      *
      * Unfollow User
      *
-     * @param string $userId Id of User to Unfollow
+     * @param string|API\Response\Model\User $userId User or User Id to Unfollow
      * @return API\Response\DestroyFriendshipResponse
      * @throws Exception
      */
@@ -1067,6 +1133,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call unfollowUser().");
+        }
+
+        if($userId instanceof User){
+            $userId = $userId->getPk();
         }
 
         $request = new DestroyFriendshipRequest($this, $userId);
@@ -1084,7 +1154,7 @@ class Instagram {
      *
      * Block User
      *
-     * @param string $userId Id of User to Block
+     * @param string|API\Response\Model\User $userId User or User Id to Block
      * @return API\Response\BlockFriendshipResponse
      * @throws Exception
      */
@@ -1092,6 +1162,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call blockUser().");
+        }
+
+        if($userId instanceof User){
+            $userId = $userId->getPk();
         }
 
         $request = new BlockFriendshipRequest($this, $userId);
@@ -1109,7 +1183,7 @@ class Instagram {
      *
      * Unblock User
      *
-     * @param string $userId Id of User to Unblock
+     * @param string|API\Response\Model\User $userId User or User Id to Unblock
      * @return API\Response\UnblockFriendshipResponse
      * @throws Exception
      */
@@ -1117,6 +1191,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call unblockUser().");
+        }
+
+        if($userId instanceof User){
+            $userId = $userId->getPk();
         }
 
         $request = new UnblockFriendshipRequest($this, $userId);
@@ -1159,7 +1237,7 @@ class Instagram {
      *
      * Search Users
      *
-     * @param string $query Tag to Search for
+     * @param string $query User to Search for
      * @return API\Response\SearchUsersResponse
      * @throws Exception
      */
@@ -1184,7 +1262,7 @@ class Instagram {
      *
      * Search Facebook Places
      *
-     * @param string $query Tag to Search for
+     * @param string $query Place to Search for
      * @return API\Response\PlacesFacebookSearchResponse
      * @throws Exception
      */
@@ -1319,7 +1397,7 @@ class Instagram {
      *
      * Edit Media
      *
-     * @param string $mediaId Id of Media to Edit
+     * @param string|API\Response\Model\FeedItem $mediaId FeedItem or FeedItem Id to Edit
      * @param string $caption Caption for this Media
      * @return API\Response\EditMediaResponse
      * @throws Exception
@@ -1328,6 +1406,10 @@ class Instagram {
 
         if(!$this->isLoggedIn()){
             throw new InstagramException("You must be logged in to call editMedia().");
+        }
+
+        if($mediaId instanceof FeedItem){
+            $mediaId = $mediaId->getPk();
         }
 
         $request = new EditMediaRequest($this, $mediaId, $caption);
