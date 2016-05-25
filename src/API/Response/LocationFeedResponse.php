@@ -30,7 +30,7 @@ class LocationFeedResponse extends BaseResponse {
 
     /**
      * Next Maximum Id
-     * @var string|null
+     * @var string
      */
     protected $next_max_id;
 
@@ -99,7 +99,7 @@ class LocationFeedResponse extends BaseResponse {
     }
 
     /**
-     * @return string|null
+     * @return string
      */
     public function getNextMaxId()
     {
@@ -107,7 +107,7 @@ class LocationFeedResponse extends BaseResponse {
     }
 
     /**
-     * @param string|null $next_max_id
+     * @param string $next_max_id
      */
     public function setNextMaxId($next_max_id)
     {

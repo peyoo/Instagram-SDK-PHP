@@ -3,6 +3,7 @@
 namespace Instagram\API\Framework;
 
 use Curl\Curl;
+use Instagram\Util\CustomJsonMapper;
 use JsonMapper;
 
 abstract class Request {
@@ -54,7 +55,7 @@ abstract class Request {
     public abstract function getUrl();
 
     public function __construct(){
-        $this->mapper = new JsonMapper();
+        $this->mapper = new CustomJsonMapper();
     }
 
     /**

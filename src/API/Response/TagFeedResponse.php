@@ -12,7 +12,7 @@ class TagFeedResponse extends BaseResponse {
 
     /**
      * Ranked Feed Items
-     * @var Model\FeedItem[]|null
+     * @var Model\FeedItem[]
      */
     protected $ranked_items;
 
@@ -30,7 +30,7 @@ class TagFeedResponse extends BaseResponse {
 
     /**
      * Next Maximum Id
-     * @var string|null
+     * @var string
      */
     protected $next_max_id;
 
@@ -51,7 +51,7 @@ class TagFeedResponse extends BaseResponse {
     }
 
     /**
-     * @return Model\FeedItem[]|null
+     * @return Model\FeedItem[]
      */
     public function getRankedItems()
     {
@@ -59,7 +59,7 @@ class TagFeedResponse extends BaseResponse {
     }
 
     /**
-     * @param Model\FeedItem[]|null $ranked_items
+     * @param Model\FeedItem[] $ranked_items
      */
     public function setRankedItems($ranked_items)
     {
@@ -99,7 +99,7 @@ class TagFeedResponse extends BaseResponse {
     }
 
     /**
-     * @return string|null
+     * @return string
      */
     public function getNextMaxId()
     {
@@ -107,7 +107,7 @@ class TagFeedResponse extends BaseResponse {
     }
 
     /**
-     * @param string|null $next_max_id
+     * @param string $next_max_id
      */
     public function setNextMaxId($next_max_id)
     {
