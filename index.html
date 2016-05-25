@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Instagram-SDK-PHP by liamcottle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Instagram-SDK-PHP</h1>
+      <h2 class="project-tagline">Unofficial PHP SDK for the Instagram Private API</h2>
+      <a href="https://github.com/liamcottle/Instagram-SDK-PHP" class="btn">View on GitHub</a>
+      <a href="https://github.com/liamcottle/Instagram-SDK-PHP/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/liamcottle/Instagram-SDK-PHP/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h2>
+<a id="instagram-sdk-php" class="anchor" href="#instagram-sdk-php" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Instagram-SDK-PHP</h2>
+
+<p>This is an unofficial SDK for the Instagram Private API in PHP</p>
+
+<h2>
+<a id="motivation" class="anchor" href="#motivation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Motivation</h2>
+
+<p>I decided to build this because most libraries for the Instagram Private API I have come across aren't OOP based and are difficult to use.</p>
+
+<h2>
+<a id="donations" class="anchor" href="#donations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Donations</h2>
+
+<p>If you like this project, please consider donating towards my coffee addiction fund, so I can continue to push commits!</p>
+
+<ul>
+<li>
+<img src="https://raw.githubusercontent.com/reek/anti-adblock-killer/gh-pages/images/paypal.png" alt="Paypal"> Paypal: <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=JMMKQZYBM2SA8">Donate</a>
+</li>
+<li>
+<img src="https://camo.githubusercontent.com/4bc31b03fc4026aa2f14e09c25c09b81e06d5e71/687474703a2f2f7777772e6d6f6e747265616c626974636f696e2e636f6d2f696d672f66617669636f6e2e69636f" alt="btc"> Bitcoin: 1814x9kioBxPDBCQx8oaty7e6Z3DAosucd</li>
+</ul>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<h3>
+<a id="composer" class="anchor" href="#composer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Composer</h3>
+
+<div class="highlight highlight-source-shell"><pre>composer require liamcottle/instagram-sdk-php</pre></div>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">require</span>(<span class="pl-s"><span class="pl-pds">"</span>../vendor/autoload.php<span class="pl-pds">"</span></span>);</span>
+<span class="pl-s1"><span class="pl-smi">$instagram</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">\Instagram\</span><span class="pl-c1">Instagram</span>();</span></pre></div>
+
+<h3>
+<a id="dont-have-composer" class="anchor" href="#dont-have-composer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Don't have Composer?</h3>
+
+<p>What?! Grab it here: <a href="https://getcomposer.org/">https://getcomposer.org/</a></p>
+
+<h2>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h2>
+
+<p>Examples can be seen in the <a href="./examples">examples</a> folder.</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<h3>
+<a id="login" class="anchor" href="#login" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Login</h3>
+
+<p>Read: <a href="#session-management">Session Management</a>, to avoid calling <code>login</code> in each script.</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>login(<span class="pl-s"><span class="pl-pds">"</span>username<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>password<span class="pl-pds">"</span></span>);</span></pre></div>
+
+<h3>
+<a id="timeline-feed" class="anchor" href="#timeline-feed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Timeline Feed</h3>
+
+<ul>
+<li>
+<code>$maxId</code>:<code>string</code> (Optional) Used for Pagination</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>getTimelineFeed(<span class="pl-smi">$maxId</span>);</span></pre></div>
+
+<h3>
+<a id="user-feed" class="anchor" href="#user-feed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>User Feed</h3>
+
+<ul>
+<li>
+<code>$userId</code>:<code>string|User</code> User or User Id to get Feed of</li>
+<li>
+<code>$maxId</code>:<code>string</code> (Optional) Used for Pagination</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>getUserFeed(<span class="pl-smi">$userId</span>, <span class="pl-smi">$maxId</span>);</span></pre></div>
+
+<h3>
+<a id="my-user-feed" class="anchor" href="#my-user-feed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>My User Feed</h3>
+
+<ul>
+<li>
+<code>$maxId</code>:<code>string</code> (Optional) Used for Pagination</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>getMyUserFeed(<span class="pl-smi">$maxId</span>);</span></pre></div>
+
+<h3>
+<a id="liked-feed" class="anchor" href="#liked-feed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Liked Feed</h3>
+
+<ul>
+<li>
+<code>$maxId</code>:<code>string</code> (Optional) Used for Pagination</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>getLikedFeed(<span class="pl-smi">$maxId</span>);</span></pre></div>
+
+<h3>
+<a id="tag-feed" class="anchor" href="#tag-feed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tag Feed</h3>
+
+<ul>
+<li>
+<code>$tag</code>:<code>string</code> Tag</li>
+<li>
+<code>$maxId</code>:<code>string</code> (Optional) Used for Pagination</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>getTagFeed(<span class="pl-smi">$tag</span>, <span class="pl-smi">$maxId</span>);</span></pre></div>
+
+<h3>
+<a id="location-feed" class="anchor" href="#location-feed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Location Feed</h3>
+
+<ul>
+<li>
+<code>$locationId</code>:<code>string|Location</code> Location or Location Id to get Feed of</li>
+<li>
+<code>$maxId</code>:<code>string</code> (Optional) Used for Pagination</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>getLocationFeed(<span class="pl-smi">$locationId</span>, <span class="pl-smi">$maxId</span>);</span></pre></div>
+
+<h3>
+<a id="user-tags-feed" class="anchor" href="#user-tags-feed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>User Tags Feed</h3>
+
+<ul>
+<li>
+<code>$userId</code>:<code>string|User</code> User of User Id to get Tags Feed of</li>
+<li>
+<code>$maxId</code>:<code>string</code> (Optional) Used for Pagination</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>getUserTagsFeed(<span class="pl-smi">$userId</span>, <span class="pl-smi">$maxId</span>);</span></pre></div>
+
+<h3>
+<a id="like-media" class="anchor" href="#like-media" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Like Media</h3>
+
+<ul>
+<li>
+<code>$mediaId</code>:<code>string|FeedItem</code> FeedItem or FeedItem Id to Like</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>likeMedia(<span class="pl-smi">$mediaId</span>);</span></pre></div>
+
+<h3>
+<a id="unlike-media" class="anchor" href="#unlike-media" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Unlike Media</h3>
+
+<ul>
+<li>
+<code>$mediaId</code>:<code>string|FeedItem</code> FeedItem or FeedItem Id to Unlike</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>unlikeMedia(<span class="pl-smi">$mediaId</span>);</span></pre></div>
+
+<h3>
+<a id="delete-media" class="anchor" href="#delete-media" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Delete Media</h3>
+
+<ul>
+<li>
+<code>$mediaId</code>:<code>string|FeedItem</code> FeedItem or FeedItem Id to Delete</li>
+<li>
+<code>$mediaType</code>:<code>int</code> Media Type (Constants available in <code>DeleteMediaRequest</code> class)</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>deleteMedia(<span class="pl-smi">$mediaId</span>, <span class="pl-smi">$mediaType</span>);</span></pre></div>
+
+<h3>
+<a id="comment-on-media" class="anchor" href="#comment-on-media" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Comment on Media</h3>
+
+<ul>
+<li>
+<code>$mediaId</code>:<code>string|FeedItem</code> FeedItem or FeedItem Id to Comment on</li>
+<li>
+<code>$comment</code>:<code>string</code> Comment</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>commentOnMedia(<span class="pl-smi">$mediaId</span>, <span class="pl-smi">$comment</span>);</span></pre></div>
+
+<h3>
+<a id="get-media-comments" class="anchor" href="#get-media-comments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Get Media Comments</h3>
+
+<ul>
+<li>
+<code>$mediaId</code>:<code>string|FeedItem</code> FeedItem or FeedItem Id of Media to get Comments from</li>
+<li>
+<code>$maxId</code>:<code>string</code> (Optional) Used for Pagination</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>getMediaComments(<span class="pl-smi">$mediaId</span>, <span class="pl-smi">$maxId</span>);</span></pre></div>
+
+<h3>
+<a id="delete-media-comments" class="anchor" href="#delete-media-comments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Delete Media Comments</h3>
+
+<ul>
+<li>
+<code>$mediaId</code>:<code>string|FeedItem</code> FeedItem or FeedItem Id to Delete Comments from</li>
+<li>
+<code>$commentIds</code>:<code>array</code> Comment Ids to Delete</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>deleteCommentsFromMedia(<span class="pl-smi">$mediaId</span>, <span class="pl-smi">$commentIds</span>);</span></pre></div>
+
+<h3>
+<a id="user-info" class="anchor" href="#user-info" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>User Info</h3>
+
+<ul>
+<li>
+<code>$userId</code>:<code>string|User</code> User or User Id to get Info of</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>getUserInfo(<span class="pl-smi">$userId</span>);</span></pre></div>
+
+<h3>
+<a id="user-followers" class="anchor" href="#user-followers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>User Followers</h3>
+
+<ul>
+<li>
+<code>$userId</code>:<code>string|User</code> User or User Id to get Followers of</li>
+<li>
+<code>$maxId</code>:<code>string</code> (Optional) Used for Pagination</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>getUserFollowers(<span class="pl-smi">$userId</span>, <span class="pl-smi">$maxId</span>);</span></pre></div>
+
+<h3>
+<a id="user-following" class="anchor" href="#user-following" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>User Following</h3>
+
+<ul>
+<li>
+<code>$userId</code>:<code>string|User</code> User or User Id to get Following of</li>
+<li>
+<code>$maxId</code>:<code>string</code> (Optional) Used for Pagination</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>getUserFollowing(<span class="pl-smi">$userId</span>, <span class="pl-smi">$maxId</span>);</span></pre></div>
+
+<h3>
+<a id="geomedia" class="anchor" href="#geomedia" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GeoMedia</h3>
+
+<ul>
+<li>
+<code>$userId</code>:<code>string|User</code> User or User Id to get GeoMedia of</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>getUserMap(<span class="pl-smi">$userId</span>);</span></pre></div>
+
+<h3>
+<a id="media-info" class="anchor" href="#media-info" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Media Info</h3>
+
+<ul>
+<li>
+<code>$mediaId</code>:<code>string|FeedItem</code> FeedItem or FeedItem Id to get Info of</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>getMediaInfo(<span class="pl-smi">$mediaId</span>);</span></pre></div>
+
+<h3>
+<a id="current-user-account" class="anchor" href="#current-user-account" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Current User Account</h3>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>getCurrentUserAccount();</span></pre></div>
+
+<h3>
+<a id="edit-user-profile" class="anchor" href="#edit-user-profile" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Edit User Profile</h3>
+
+<ul>
+<li>
+<code>$firstname</code>:<code>string</code> First Name</li>
+<li>
+<code>$email</code>:<code>string</code> Email</li>
+<li>
+<code>$phoneNumber</code>:<code>string</code> Phone Number</li>
+<li>
+<code>$gender</code>:<code>int</code> Gender (Constants available in <code>User</code> class)</li>
+<li>
+<code>$biography</code>:<code>string</code>: Biography</li>
+<li>
+<code>$externalUrl</code>:<code>string</code> External Url</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>editUserProfile(<span class="pl-smi">$firstname</span>, <span class="pl-smi">$email</span>, <span class="pl-smi">$phoneNumber</span>, <span class="pl-smi">$gender</span>, <span class="pl-smi">$biography</span>, <span class="pl-smi">$externalUrl</span>);</span></pre></div>
+
+<h3>
+<a id="set-account-public" class="anchor" href="#set-account-public" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Set Account Public</h3>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>setAccountPublic();</span></pre></div>
+
+<h3>
+<a id="set-account-private" class="anchor" href="#set-account-private" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Set Account Private</h3>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>setAccountPrivate();</span></pre></div>
+
+<h3>
+<a id="show-friendship" class="anchor" href="#show-friendship" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Show Friendship</h3>
+
+<ul>
+<li>
+<code>$userId</code>:<code>string|User</code> User or User Id to show Friendship between</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>showFriendship(<span class="pl-smi">$userId</span>);</span></pre></div>
+
+<h3>
+<a id="follow-user" class="anchor" href="#follow-user" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Follow User</h3>
+
+<ul>
+<li>
+<code>$userId</code>:<code>string|User</code> User or User Id to Follow</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>followUser(<span class="pl-smi">$userId</span>);</span></pre></div>
+
+<h3>
+<a id="unfollow-user" class="anchor" href="#unfollow-user" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Unfollow User</h3>
+
+<ul>
+<li>
+<code>$userId</code>:<code>string|User</code> User or User Id to Unfollow</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>unfollowUser(<span class="pl-smi">$userId</span>);</span></pre></div>
+
+<h3>
+<a id="block-user" class="anchor" href="#block-user" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Block User</h3>
+
+<ul>
+<li>
+<code>$userId</code>:<code>string|User</code> User or User Id to Block</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>blockUser(<span class="pl-smi">$userId</span>);</span></pre></div>
+
+<h3>
+<a id="unblock-user" class="anchor" href="#unblock-user" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Unblock User</h3>
+
+<ul>
+<li>
+<code>$userId</code>:<code>string|User</code> User or User Id to Unblock</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>unblockUser(<span class="pl-smi">$userId</span>);</span></pre></div>
+
+<h3>
+<a id="search-tags" class="anchor" href="#search-tags" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Search Tags</h3>
+
+<ul>
+<li>
+<code>$query</code>:<code>string</code> Tag to Search for</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>searchTags(<span class="pl-smi">$query</span>);</span></pre></div>
+
+<h3>
+<a id="search-users" class="anchor" href="#search-users" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Search Users</h3>
+
+<ul>
+<li>
+<code>$query</code>:<code>string</code> User to Search for</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>searchUsers(<span class="pl-smi">$query</span>);</span></pre></div>
+
+<h3>
+<a id="search-places-facebook" class="anchor" href="#search-places-facebook" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Search Places (Facebook)</h3>
+
+<ul>
+<li>
+<code>$query</code>:<code>string</code> Place to Search for</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>searchFacebookPlaces(<span class="pl-smi">$query</span>);</span></pre></div>
+
+<ul>
+<li>
+<code>$latitude</code>:<code>string</code> Latitude</li>
+<li>
+<code>$longitude</code>:<code>string</code> Longitude</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>searchFacebookPlacesByLocation(<span class="pl-smi">$latitude</span>, <span class="pl-smi">$longitude</span>);</span></pre></div>
+
+<h3>
+<a id="change-profile-picture" class="anchor" href="#change-profile-picture" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Change Profile Picture</h3>
+
+<ul>
+<li>
+<code>$path</code>:<code>string</code> File path of Profile Picture to Upload</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>changeProfilePicture(<span class="pl-smi">$path</span>);</span></pre></div>
+
+<h3>
+<a id="remove-profile-picture" class="anchor" href="#remove-profile-picture" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Remove Profile Picture</h3>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>removeProfilePicture();</span></pre></div>
+
+<h3>
+<a id="post-photo" class="anchor" href="#post-photo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Post Photo</h3>
+
+<ul>
+<li>
+<code>$path</code>:<code>string</code> File path of Photo to Post</li>
+<li>
+<code>$caption</code>:<code>string</code> Caption for this Photo</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>postPhoto(<span class="pl-smi">$path</span>, <span class="pl-smi">$caption</span>);</span></pre></div>
+
+<h3>
+<a id="edit-media" class="anchor" href="#edit-media" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Edit Media</h3>
+
+<ul>
+<li>
+<code>$mediaId</code>:<code>string|FeedItem</code> FeedItem or FeedItem Id to Edit</li>
+<li>
+<code>$caption</code>:<code>string</code> Caption for this Media</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>editMedia(<span class="pl-smi">$mediaId</span>, <span class="pl-smi">$caption</span>);</span></pre></div>
+
+<h3>
+<a id="get-user-by-username" class="anchor" href="#get-user-by-username" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Get User by Username</h3>
+
+<ul>
+<li>
+<code>$username</code>:<code>string</code> Username to find User by</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>getUserByUsername(<span class="pl-smi">$username</span>);</span></pre></div>
+
+<h3>
+<a id="logout" class="anchor" href="#logout" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Logout</h3>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>logout();</span></pre></div>
+
+<h2>
+<a id="session-management" class="anchor" href="#session-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Session Management</h2>
+
+<p>To avoid logging in each time, you can use the <code>saveSession</code> and <code>initFromSavedSession</code> methods.</p>
+
+<p>Script 1:</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c">//Login</span></span>
+<span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>login(<span class="pl-s"><span class="pl-pds">"</span>username<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>password<span class="pl-pds">"</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">//Serialize the Session into a JSON string</span></span>
+<span class="pl-s1"><span class="pl-smi">$savedSession</span> <span class="pl-k">=</span> <span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>saveSession();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">//Store $savedSession in Database, or Cookie etc</span></span></pre></div>
+
+<p>Script 2:</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c">//Load $savedSession from Database or Cookie etc</span></span>
+<span class="pl-s1"><span class="pl-smi">$savedSession</span> <span class="pl-k">=</span> <span class="pl-k">...</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">//Init from Saved Session</span></span>
+<span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>initFromSavedSession(<span class="pl-smi">$savedSession</span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">//Session is Restored, do something!</span></span>
+<span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span> <span class="pl-k">...</span>;</span></pre></div>
+
+<h2>
+<a id="extras" class="anchor" href="#extras" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Extras</h2>
+
+<h3>
+<a id="proxy" class="anchor" href="#proxy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Proxy</h3>
+
+<p>Use a Proxy between your Server and the Instagram API</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>setProxy(<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1:8888<span class="pl-pds">"</span></span>);</span></pre></div>
+
+<p>Enable or Disable Peer Verification, for testing with Charles Proxy etc.</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$instagram</span><span class="pl-k">-&gt;</span>setVerifyPeer(<span class="pl-c1">false</span>);</span></pre></div>
+
+<h2>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TODO</h2>
+
+<ul>
+<li>Inbox</li>
+<li>Direct Share</li>
+<li>Recent Activity</li>
+<li>Register new Accounts</li>
+<li>Upload and Post Videos</li>
+</ul>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>If you would like to contribute to this project, please feel free to submit a pull request.</p>
+
+<p>Before you do, take a look at the issues to see if the functionality you want to contribute to is already in development.</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>MIT</p>
+
+<h2>
+<a id="legal" class="anchor" href="#legal" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Legal</h2>
+
+<p>The name "Instagram" is a copyright of Instagram, Inc.</p>
+
+<p>This project is in no way affiliated with, authorized, maintained, sponsored or endorsed by Instagram, Inc or any of its affiliates or subsidiaries.</p>
+
+<p>I, the project owner and creator, am not responsible for any legalities that may arise in the use of this project. Use at your own risk.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/liamcottle/Instagram-SDK-PHP">Instagram-SDK-PHP</a> is maintained by <a href="https://github.com/liamcottle">liamcottle</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
