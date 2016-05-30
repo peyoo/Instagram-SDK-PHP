@@ -423,7 +423,13 @@ class Instagram {
         $response = $request->execute();
 
         if(!$response->isOk()){
+
+            if($response->isCheckpointRequired()){
+                throw new InstagramException(sprintf("Login Failed: [%s] %s\nGo to this URL in your web browser to continue:\n%s", $response->getStatus(), $response->getMessage(), $response->getCheckpointUrl()));
+            }
+
             throw new InstagramException(sprintf("Login Failed: [%s] %s", $response->getStatus(), $response->getMessage()));
+
         }
 
         $this->setLoggedInUser($response->getLoggedInUser());

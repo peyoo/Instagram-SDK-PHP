@@ -10,6 +10,7 @@ class BaseResponse implements JsonSerializable {
     const STATUS_FAIL = "fail";
 
     const MESSAGE_FEEDBACK_REQUIRED = "feedback_required";
+    const MESSAGE_CHECKPOINT_REQUIRED = "checkpoint_required";
 
     /**
      *
@@ -34,6 +35,14 @@ class BaseResponse implements JsonSerializable {
      * @var boolean
      */
     protected $spam;
+
+    /**
+     *
+     * Account Locked
+     *
+     * @var boolean
+     */
+    protected $lock;
 
     /**
      *
@@ -91,6 +100,22 @@ class BaseResponse implements JsonSerializable {
     }
 
     /**
+     * @return boolean
+     */
+    public function isLock()
+    {
+        return $this->lock;
+    }
+
+    /**
+     * @param boolean $lock
+     */
+    public function setLock($lock)
+    {
+        $this->lock = $lock;
+    }
+
+    /**
      * @return string
      */
     public function getFeedbackMessage()
@@ -106,8 +131,18 @@ class BaseResponse implements JsonSerializable {
         $this->feedback_message = $feedback_message;
     }
 
+    /**
+     * @return bool
+     */
     public function isOk(){
         return $this->getStatus() == self::STATUS_OK;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCheckpointRequired(){
+        return $this->getMessage() == self::MESSAGE_CHECKPOINT_REQUIRED;
     }
 
     function jsonSerialize(){

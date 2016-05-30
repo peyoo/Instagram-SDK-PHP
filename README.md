@@ -26,6 +26,12 @@ require("../vendor/autoload.php");
 $instagram = new \Instagram\Instagram();
 ```
 
+If you want to test code that is in the master branch, which hasn't been pushed as a release, you can use `dev-master`.
+
+```sh
+composer require liamcottle/instagram-sdk-php dev-master
+```
+
 ### Don't have Composer?
 
 What?! Grab it here: [https://getcomposer.org/](https://getcomposer.org/)
